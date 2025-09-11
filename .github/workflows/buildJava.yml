@@ -12,7 +12,7 @@ jobs:
     - name: "checkout"
       uses: actions/checkout@v5
       with:
-        repository: ''
+        fetch-depth: 0
     - name: "setup"
       uses: actions/setup-java@v5
       with:
