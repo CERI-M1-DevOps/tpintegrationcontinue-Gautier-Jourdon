@@ -1,0 +1,22 @@
+name : "Java CI with Maven - Test and package"
+
+on:
+ pull_request:
+  - branches: [main]
+
+jobs:
+ Javabuild:
+  name: Javabuild
+  runs-on: latest-ubuntu
+  steps:
+   - name: "checkout"
+     uses: actions/checkout@v5
+     with:
+       repository: ''
+   - name: "setup"
+     uses: actions/setup-java@v5
+     with:
+      distribution: 'corretto'
+      java-version: '21'
+   - name: "build"
+     run: mvn -B package
