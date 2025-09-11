@@ -5,8 +5,8 @@ on:
   - branches: [main]
 
 jobs:
- Javabuild:
-  name: Javabuild
+ java-build:
+  name: java-build
   runs-on: latest-ubuntu
   steps:
    - name: "checkout"
