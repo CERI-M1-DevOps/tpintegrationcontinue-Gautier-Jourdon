@@ -106,46 +106,40 @@ public class ListeSimple {
         tete = precedent;
     }
 
-    // Renvoie le précédent de 'cible' ou null si tête / introuvable
-    private Noeud getPrecedent(Noeud cible) {
-        if (tete == null || cible == null || cible == tete) return null;
-        Noeud courant = tete;
-        while (courant != null && courant.getSuivant() != cible) {
+    public Noeud getPrecedent(Noeud r) {
+    // la liste n'est pas vide puisqu'on transmet un Node de la liste et le Node existe obligatoirement
+        Noeud precedent = tete;
+        Noeud courant = precedent.getSuivant();
+        while (courant != r) {
+            precedent = courant;
             courant = courant.getSuivant();
         }
-        return courant; // peut être null si non trouvé
+        return precedent;
     }
 
-    // Échange deux nœuds de la liste (ré-adresse les pointeurs)
-    public void echanger(Noeud a, Noeud b) {
-        if (a == null || b == null || a == b || tete == null) return;
-
-        Noeud prevA = (a == tete) ? null : getPrecedent(a);
-        Noeud prevB = (b == tete) ? null : getPrecedent(b);
-
-        // Vérifie que 'a' et 'b' appartiennent à cette liste
-        boolean presentA = (a == tete) || (prevA != null);
-        boolean presentB = (b == tete) || (prevB != null);
-        if (!presentA || !presentB) return;
-
-        Noeud aNext = a.getSuivant();
-        Noeud bNext = b.getSuivant();
-
-        // Relie les précédents vers les nouveaux nœuds
-        if (prevA != null) prevA.setSuivant(b); else tete = b;
-        if (prevB != null) prevB.setSuivant(a); else tete = a;
-
-        // Cas adjacents vs cas généraux
-        if (aNext == b) {            // a avant b
-            b.setSuivant(a);
-            a.setSuivant(bNext);
-        } else if (bNext == a) {     // b avant a
-            a.setSuivant(b);
-            b.setSuivant(aNext);
-        } else {                     // non adjacents
-            a.setSuivant(bNext);
-            b.setSuivant(aNext);
+    public void echanger(Noeud r1, Noeud r2) {
+        if (r1 == r2)
+            return;
+        Noeud precedentR1;
+        Noeud precedentR2;
+        if (r1 != tete && r2 != tete) {
+            precedentR1 = getPrecedent(r1);
+            precedentR2 = getPrecedent(r2);
+            precedentR1.setSuivant(r2);
+            precedentR2.setSuivant(r1);
+        } else if (r1 == tete) {
+            precedentR2 = getPrecedent(r2);
+            precedentR2.setSuivant(tete);
+            tete = r2;
         }
+
+        precedentR1 = getPrecedent(r1);
+        precedentR1.setSuivant(tete);
+        tete = r1;
+
+        Noeud temp = r2.getSuivant();
+        r2.setSuivant(r1.getSuivant());
+        r1.setSuivant(temp);
     }
 
 }
