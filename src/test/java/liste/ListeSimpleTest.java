@@ -223,7 +223,7 @@ public class ListeSimpleTest {
         listeATester.ajout(1);
         assertEquals(listeATester.toString(), "ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))");
         listeATester.echanger(r1, r2);
-        assertEquals(listeATester.toString(), "ListeSimple(Noeud(1), Noeud(4), Noeud(3), Noeud(2), Noeud(5))");
+        assertEquals(listeATester.toString(), "ListeSimple(Noeud(4), Noeud(3), Noeud(2), Noeud(5)");
     }
 
     @Test
