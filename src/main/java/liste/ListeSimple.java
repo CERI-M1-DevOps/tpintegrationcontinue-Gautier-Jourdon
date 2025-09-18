@@ -106,40 +106,40 @@ public class ListeSimple {
         tete = precedent;
     }
 
-    // Renvoie le précédent du nœud cible (ou null si tête, introuvable, ou liste vide)
-    private Noeud getPrecedent(Noeud cible) {
-        if (cible == null || tete == null || cible == tete) {
-            return null;
-        }
-        Noeud courant = tete;
-        while (courant != null && courant.getSuivant() != cible) {
+    public Noeud getPrecedent(Noeud r) {
+    // la liste n'est pas vide puisqu'on transmet un Node de la liste et le Node existe obligatoirement
+        Noeud precedent = tete;
+        Noeud courant = precedent.getSuivant();
+        while (courant != r) {
+            precedent = courant;
             courant = courant.getSuivant();
         }
-        return courant; // peut être null si cible non trouvée
+        return precedent;
     }
 
-    // Helper: premier nœud portant la valeur donnée
-    private Noeud trouverPremier(int valeur) {
-        Noeud courant = tete;
-        while (courant != null) {
-            if (courant.getElement() == valeur) {
-                return courant;
-            }
-            courant = courant.getSuivant();
+    public void echanger(Noeud r1, Noeud r2) {
+        if (r1 == r2)
+            return;
+        Noeud precedentR1;
+        Noeud precedentR2;
+        if (r1 != tete && r2 != tete) {
+            precedentR1 = getPrecedent(r1);
+            precedentR2 = getPrecedent(r2);
+            precedentR1.setSuivant(r2);
+            precedentR2.setSuivant(r1);
+        } else if (r1 == tete) {
+            precedentR2 = getPrecedent(r2);
+            precedentR2.setSuivant(tete);
+            tete = r2;
         }
-        return null;
-    }
 
-    // Échange les valeurs de deux nœuds (plus robuste que manipuler les liens)
-    public void echanger(int v1, int v2) {
-        if (v1 == v2) return;
-        Noeud n1 = trouverPremier(v1);
-        Noeud n2 = trouverPremier(v2);
-        if (n1 == null || n2 == null) return;
+        precedentR1 = getPrecedent(r1);
+        precedentR1.setSuivant(tete);
+        tete = r1;
 
-        int tmp = n1.getElement();
-        n1.setElement(n2.getElement());
-        n2.setElement(tmp);
+        Noeud temp = r2.getSuivant();
+        r2.setSuivant(r1.getSuivant());
+        r1.setSuivant(temp);
     }
 
 }
