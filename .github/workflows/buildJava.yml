@@ -1,10 +1,13 @@
 name : "Java CI with Maven - Test and package"
 
 on:
-  pull_request:
+  push:
     branches:
       - main
       - dev
+  pull_request:
+    branches:
+      - main
 
 jobs:
   java-build:
